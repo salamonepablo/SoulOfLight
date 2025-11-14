@@ -1,4 +1,4 @@
-# SoulOfLight – E-commerce de Productos Esotéricos y Servicios Holísticos
+# SoulOfLight – E-commerce de Productos Para tu Alma de Luz y Servicios Holísticos
 
 SoulOfLight es una aplicación web de comercio electrónico desarrollada con **Next.js 14 (App Router)**, **TypeScript**, **Prisma ORM** y **PostgreSQL**.  
 El proyecto combina venta de productos (sahumerios, inciensos, velas, etc.) con la contratación de servicios holísticos como tarot, numerología y sesiones espirituales.
