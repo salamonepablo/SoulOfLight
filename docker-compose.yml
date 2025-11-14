@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: souloflight
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

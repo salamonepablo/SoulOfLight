@@ -1,0 +1,48 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log("🌱 Iniciando seed de productos...");
+
+  // Limpiamos productos previos para evitar duplicados
+  await prisma.product.deleteMany();
+
+  // Creamos 3 productos básicos
+  await prisma.product.createMany({
+    data: [
+      {
+        name: "Sahumerio Palo Santo",
+        description: "Limpieza energética y armonización.",
+        price: 3500.0,
+        stock: 5,
+        imageUrl: "/images/palo_santo.jpg"
+      },
+      {
+        name: "Incienso de Lavanda",
+        description: "Relajación, calma y bienestar emocional.",
+        price: 3500.0,
+        stock: 10,
+        imageUrl: "/images/incenso_lavanda.jpg"
+      },
+      {
+        name: "Vela de Intención",
+        description: "Para rituales, manifestación y meditación.",
+        price: 3500.0,
+        stock: 3,
+        imageUrl: "/images/vela_intencion.jpg"
+      }
+    ]
+  });
+
+  console.log("🌱 Seed completado.");
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

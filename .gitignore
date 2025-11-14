@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+
+# Build de Next
+.next/
+out/
+
+# Entorno
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Prisma
+prisma/dev.db
