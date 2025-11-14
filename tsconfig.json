@@ -11,9 +11,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
