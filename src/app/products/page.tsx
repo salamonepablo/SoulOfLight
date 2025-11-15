@@ -58,7 +58,7 @@ export default function ProductsPage() {
         cursor: "pointer",
       }}
       onClick={() => {
-         useCartStore.getState().addItem(product);
+         useCartStore.getState().addToCart(product);
          alert("Agregado al carrito");
       }}
     >

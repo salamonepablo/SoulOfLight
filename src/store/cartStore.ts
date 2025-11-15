@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
   price: number;
@@ -9,50 +9,42 @@ interface CartItem {
   quantity: number;
 }
 
-interface CartStore {
+interface CartState {
   items: CartItem[];
-  addItem: (product: any) => void;
-  removeItem: (id: number) => void;
+  addToCart: (product: Omit<CartItem, "quantity">) => void;
+  removeFromCart: (id: number) => void;
   clearCart: () => void;
 }
 
-export const useCartStore = create<CartStore>()(
+export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
 
-      addItem: (product) => {
-        const existing = get().items.find((i) => i.id === product.id);
+      addToCart: (product) => {
+        const existing = get().items.find((item) => item.id === product.id);
 
         if (existing) {
-          // si ya existe, solo aumentar cantidad
           set({
-            items: get().items.map((i) =>
-              i.id === product.id
-                ? { ...i, quantity: i.quantity + 1 }
-                : i
+            items: get().items.map((item) =>
+              item.id === product.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
             ),
           });
         } else {
-          // si no existe, agregar nuevo item
           set({
             items: [
               ...get().items,
-              {
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                imageUrl: product.imageUrl,
-                quantity: 1,
-              },
+              { ...product, quantity: 1 }
             ],
           });
         }
       },
 
-      removeItem: (id) => {
+      removeFromCart: (id) => {
         set({
-          items: get().items.filter((i) => i.id !== id),
+          items: get().items.filter((item) => item.id !== id),
         });
       },
 
@@ -60,8 +52,9 @@ export const useCartStore = create<CartStore>()(
         set({ items: [] });
       },
     }),
+
     {
-      name: "soul-cart", // guarda en localStorage
+      name: "souloflight-cart", // clave en localStorage
     }
   )
 );
