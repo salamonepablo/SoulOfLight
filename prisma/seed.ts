@@ -15,7 +15,7 @@ async function main() {
         name: "Sahumerio Palo Santo",
         description: "Limpieza energética y armonización.",
         price: 3500.0,
-        stock: 5,
+        stock: 5, 
         imageUrl: "/images/palo_santo.jpg"
       },
       {

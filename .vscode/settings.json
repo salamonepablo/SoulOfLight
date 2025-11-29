@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "*.psx": "typescriptreact"
-  }
+    "*.psx": "typescriptreact",
+  },
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true
 }
