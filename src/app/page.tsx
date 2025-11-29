@@ -18,7 +18,7 @@ export default function Page() {
       id: product.id,
       name: product.name,
       price: product.price,
-      imageUrl: product.imageUrl || "/images/product-placeholder.svg",
+      imageUrl: product.imageUrl || "/images/almadeluz.jpg",
     });
   };
 
@@ -66,16 +66,9 @@ export default function Page() {
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-              Bienestar holístico
-            </p>
-            <h1 className="text-2xl font-bold tracking-tight leading-tight text-slate-900">
-              Encuentra productos que elevan tu energía
-            </h1>
-            <p className="text-slate-700 max-w-3xl">
-              Explora aceites, cristales y accesorios pensados para acompañar tu camino espiritual.
-              Cambia la vista para navegar como prefieras.
-            </p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Catálogo</p>
+            <h1 className="text-2xl font-bold tracking-tight leading-tight text-slate-900">Productos destacados</h1>
+            <p className="text-slate-700 max-w-3xl">Agrega productos al carrito; el foco está en el catálogo.</p>
           </div>
 
           <div className="flex items-center gap-3">

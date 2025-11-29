@@ -55,7 +55,7 @@ export default function CartPage() {
                   >
                     <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
                       <Image
-                        src={item.imageUrl}
+                        src={item.imageUrl || "/images/almadeluz.jpg"}
                         alt={item.name}
                         width={120}
                         height={120}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCartStore } from "@/store/cartStore";
 
 function CartIcon() {
@@ -63,25 +64,46 @@ export default function Header() {
 
         <nav className="flex items-center gap-3">
           <Link
-            href="/products"
-            className="button-base button-ghost text-sm"
-            aria-label="Explorar productos"
-          >
-            Productos
-          </Link>
-          <Link
-            href="/cart"
-            className="button-base button-primary text-sm"
-            aria-label="Ir al carrito"
-          >
-            <CartIcon />
-            Carrito
-            <span className="badge-count" aria-hidden>
-              {totalQty}
-            </span>
-          </Link>
-        </nav>
-      </div>
-    </header>
-  );
-}
+            return (
+              <header
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "1rem 2rem",
+                  borderBottom: "1px solid #ddd",
+                  marginBottom: "2rem",
+                }}
+              >
+                <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <Image src="/images/almadeluz.jpg" alt="SoulOfLight" width={40} height={40} style={{ borderRadius: 8 }} />
+                  <span style={{ fontSize: "1.25rem", fontWeight: 600 }}>SoulOfLight</span>
+                </Link>
+
+                <nav style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <Link href="/products" style={{ fontSize: "1rem" }}>Productos</Link>
+                  <Link
+                    href="/cart"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    🛒 Carrito
+                    <span
+                      style={{
+                        background: "#333",
+                        color: "white",
+                        padding: "2px 8px",
+                        borderRadius: "12px",
+                        fontSize: "0.85rem",
+                      }}
+                    >
+                      {totalQty}
+                    </span>
+                  </Link>
+                </nav>
+              </header>
+            );

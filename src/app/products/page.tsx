@@ -18,7 +18,7 @@ export default function ProductsPage() {
       id: product.id,
       name: product.name,
       price: product.price,
-      imageUrl: product.imageUrl || "/images/product-placeholder.svg",
+      imageUrl: product.imageUrl || "/images/almadeluz.jpg",
     });
   };
 
