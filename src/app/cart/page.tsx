@@ -1,98 +1,113 @@
 "use client";
 
-import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
+import Link from "next/link";
+import { useCartStore } from "@/store/cartStore";
 
 export default function CartPage() {
   const { items, removeFromCart, clearCart } = useCartStore();
 
-  const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1 style={{ marginBottom: "1rem" }}>🛒 Carrito</h1>
-
-      {items.length === 0 && <p>Tu carrito está vacío.</p>}
-
-      {items.map((item) => (
-        <div
-          key={item.id}
-          style={{
-            display: "flex",
-            gap: "1rem",
-            marginBottom: "1rem",
-            border: "1px solid #ccc",
-            borderRadius: "8px",
-            padding: "1rem",
-          }}
-        >
-          <Image
-            src={item.imageUrl}
-            alt={item.name}
-            width={100}
-            height={100}
-          />
-
-          <div>
-            <h3>{item.name}</h3>
-            <p>Precio: ${item.price}</p>
-            <p>Cantidad: {item.quantity}</p>
-            <p>
-              <strong>Subtotal: ${item.price * item.quantity}</strong>
+    <main className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col gap-6">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+              🛒 Carrito
             </p>
-
-            <button
-              onClick={() => removeFromCart(item.id)}
-              style={{
-                padding: "6px 10px",
-                background: "#fdd",
-                border: "1px solid #d55",
-                borderRadius: "6px",
-                cursor: "pointer",
-                marginTop: "8px",
-              }}
-            >
-              Quitar
-            </button>
+            <h1 className="text-2xl font-bold tracking-tight leading-tight text-slate-900">
+              Tu selección consciente
+            </h1>
+            <p className="text-slate-700">Revisa tus productos antes de finalizar la compra.</p>
           </div>
+
+          {items.length > 0 && (
+            <button
+              type="button"
+              onClick={clearCart}
+              className="button-base button-ghost text-sm"
+            >
+              Vaciar carrito
+            </button>
+          )}
         </div>
-      ))}
 
-      {items.length > 0 && (
-        <>
-          <h2>Total: ${total}</h2>
+        {items.length === 0 ? (
+          <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-sm text-center">
+            <p className="text-base text-slate-700">Tu carrito está vacío.</p>
+            <div className="mt-4">
+              <Link href="/products" className="button-base button-primary">
+                Ver productos
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-4">
+              {items.map((item) => {
+                const subtotal = item.price * item.quantity;
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-5 p-4 border border-slate-100 bg-white rounded-xl shadow-sm"
+                  >
+                    <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        width={120}
+                        height={120}
+                        className="h-24 w-24 object-cover"
+                      />
+                    </div>
 
-          <button
-            onClick={clearCart}
-            style={{
-              padding: "10px 14px",
-              background: "#eee",
-              border: "1px solid #333",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginTop: "1rem",
-            }}
-          >
-            Vaciar carrito
-          </button>
-        </>
-      )}
+                    <div className="flex-1 space-y-2">
+                      <h3 className="text-lg font-semibold text-slate-900 leading-tight">{item.name}</h3>
+                      <p className="text-sm text-slate-700">Precio: ${item.price.toFixed(2)}</p>
+                      <p className="text-sm text-slate-700">Cantidad: {item.quantity}</p>
+                      <p className="text-sm font-semibold text-emerald-700">
+                        Subtotal: ${subtotal.toFixed(2)}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-3">
+                      <button
+                        type="button"
+                        onClick={() => removeFromCart(item.id)}
+                        className="button-base button-ghost text-sm"
+                      >
+                        Quitar
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-md flex items-center justify-between gap-4 flex-wrap">
+              <div>
+                <p className="text-sm text-slate-700">Total</p>
+                <p className="text-2xl font-bold text-emerald-700">${total.toFixed(2)}</p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={clearCart}
+                  className="button-base button-ghost text-sm"
+                >
+                  Vaciar
+                </button>
+                <Link href="/checkout" className="button-base button-primary text-sm">
+                  Finalizar compra
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </main>
   );
-          <a
-            href="/checkout"
-            style={{
-              padding: "10px 14px",
-              background: "#4CAF50",
-              color: "white",
-              borderRadius: "6px",
-              marginLeft: "1rem",
-              textDecoration: "none",
-            }}
-          >
-            Finalizar compra
-          </a>
 }
