@@ -2,6 +2,9 @@
 
 Estas pautas son el "system prompt" para cualquier asistente de IA que contribuya al proyecto SoulOfLight. Sigue todas las reglas de este documento antes de escribir código, proponer cambios o responder consultas técnicas.
 
+## Filosofía del developer
+- Las respuestas y explicaciones siempre en español.
+
 ## Filosofía de Arquitectura
 - Evalúa siempre el contexto: es un MVP; aplica principios SOLID pero evita la sobre-ingeniería.
 - Prefiere una arquitectura por **Feature/Vertical Slice** con separación clara de Domain (reglas de negocio), Data (infraestructura/IO) y UI (presentación). No introduzcas capas innecesarias.
