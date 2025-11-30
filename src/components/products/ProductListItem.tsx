@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { Product } from "@/types/product";
 
 interface ProductListItemProps {
@@ -9,18 +10,20 @@ interface ProductListItemProps {
 }
 
 export function ProductListItem({ product, onAddToCart }: ProductListItemProps) {
-  const imageSrc = product.imageUrl || "/images/product-placeholder.svg";
+  const [imgSrc, setImgSrc] = useState<string>(product.imageUrl || "/images/almadeluz.jpg");
+  const [justAdded, setJustAdded] = useState(false);
   const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="flex items-center gap-5 p-4 border border-slate-100 bg-white rounded-xl shadow-sm card-hover">
       <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
         <Image
-          src={imageSrc}
+          src={imgSrc}
           alt={product.name}
           width={120}
           height={120}
           className="h-24 w-24 object-cover"
+          onError={() => setImgSrc("/images/almadeluz.jpg")}
         />
       </div>
 
@@ -38,10 +41,15 @@ export function ProductListItem({ product, onAddToCart }: ProductListItemProps) 
         <span className="text-emerald-600 font-bold text-lg">${product.price.toFixed(2)}</span>
         <button
           type="button"
-          className="button-base button-primary px-4 py-3"
-          onClick={() => onAddToCart(product)}
+          className={`button-base px-4 py-3 ${justAdded ? "button-success" : "button-primary"}`}
+          onClick={() => {
+            onAddToCart(product);
+            setJustAdded(true);
+            setTimeout(() => setJustAdded(false), 1500);
+          }}
+          aria-live="polite"
         >
-          Agregar
+          {justAdded ? "Agregado ✓" : "Agregar"}
         </button>
       </div>
     </article>

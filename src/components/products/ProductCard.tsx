@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -32,18 +33,20 @@ function CartPlusIcon() {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
-  const imageSrc = product.imageUrl || "/images/product-placeholder.svg";
+  const [imgSrc, setImgSrc] = useState<string>(product.imageUrl || "/images/almadeluz.jpg");
+  const [justAdded, setJustAdded] = useState(false);
   const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="bg-white rounded-xl border border-slate-100 shadow-md card-hover overflow-hidden p-4 space-y-3">
       <div className="h-44 w-full overflow-hidden rounded-lg">
         <Image
-          src={imageSrc}
+          src={imgSrc}
           alt={product.name}
           width={480}
           height={300}
           className="h-44 w-full object-cover"
+          onError={() => setImgSrc("/images/almadeluz.jpg")}
         />
       </div>
 
@@ -56,11 +59,22 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
       <button
         type="button"
-        className="button-base button-primary justify-center w-full"
-        onClick={() => onAddToCart(product)}
+        className={`button-base justify-center w-full ${justAdded ? "button-success" : "button-primary"}`}
+        onClick={() => {
+          onAddToCart(product);
+          setJustAdded(true);
+          setTimeout(() => setJustAdded(false), 1500);
+        }}
+        aria-live="polite"
       >
-        <CartPlusIcon />
-        Agregar al carrito
+        {justAdded ? (
+          <>✓ Agregado</>
+        ) : (
+          <>
+            <CartPlusIcon />
+            Agregar al carrito
+          </>
+        )}
       </button>
     </article>
   );
