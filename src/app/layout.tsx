@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SoulOfLight",
+  title: "Alma de Luz",
   description: "Marketplace holístico en evolución",
 };
 

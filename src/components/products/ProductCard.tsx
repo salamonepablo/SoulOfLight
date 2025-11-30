@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Product } from "@/types/product";
+import { formatMoney } from "@/lib/price";
 
 interface ProductCardProps {
   product: Product;
@@ -52,7 +53,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-lg font-semibold text-slate-900 leading-tight">{product.name}</h3>
-        <span className="text-emerald-600 font-bold text-lg">${product.price.toFixed(2)}</span>
+        <span className="text-emerald-600 font-bold text-lg">{formatMoney(product.price)}</span>
       </div>
 
       <p className="text-sm text-slate-700 line-clamp-2">{description}</p>

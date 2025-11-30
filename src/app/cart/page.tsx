@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
+import { formatMoney } from "@/lib/price";
 
 export default function CartPage() {
   const { items, removeFromCart, clearCart } = useCartStore();
@@ -65,10 +66,10 @@ export default function CartPage() {
 
                     <div className="flex-1 space-y-2">
                       <h3 className="text-lg font-semibold text-slate-900 leading-tight">{item.name}</h3>
-                      <p className="text-sm text-slate-700">Precio: ${item.price.toFixed(2)}</p>
+                      <p className="text-sm text-slate-700">Precio: {formatMoney(item.price)}</p>
                       <p className="text-sm text-slate-700">Cantidad: {item.quantity}</p>
                       <p className="text-sm font-semibold text-emerald-700">
-                        Subtotal: ${subtotal.toFixed(2)}
+                        Subtotal: {formatMoney(subtotal)}
                       </p>
                     </div>
 
@@ -89,7 +90,7 @@ export default function CartPage() {
             <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-md flex items-center justify-between gap-4 flex-wrap">
               <div>
                 <p className="text-sm text-slate-700">Total</p>
-                <p className="text-2xl font-bold text-emerald-700">${total.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-emerald-700">{formatMoney(total)}</p>
               </div>
 
               <div className="flex items-center gap-3">

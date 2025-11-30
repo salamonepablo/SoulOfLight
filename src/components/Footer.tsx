@@ -31,15 +31,15 @@ export default function Footer() {
             </span>
             
             {/* Elemento 2: Instagram 1 */}
-            <Link href="https://instagram.com/almadeluz71" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-700 flex items-center gap-2 group transition-all">
+            <Link href="https://instagram.com/almadeluz.sahumerios" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-700 flex items-center gap-2 group transition-all">
               <IoLogoInstagram size={22} style={{ fill: "url(#instagram-gradient)" }} className="group-hover:scale-110 transition-transform"/>
-              <span className="hidden sm:inline">@almadeluz71</span> {/* Oculta texto en móviles muy chicos si es necesario */}
+              <span className="hidden sm:inline">@almadeluz.sahumerios</span> {/* Oculta texto en móviles muy chicos si es necesario */}
             </Link>
             
             {/* Elemento 3: Instagram 2 */}
-            <Link href="https://instagram.com/almadeluz.sahumerios" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-700 flex items-center gap-2 group transition-all">
+            <Link href="https://instagram.com/almadeluz71" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-700 flex items-center gap-2 group transition-all">
               <IoLogoInstagram size={22} style={{ fill: "url(#instagram-gradient)" }} className="group-hover:scale-110 transition-transform"/>
-              <span className="hidden sm:inline">@almadeluz.sahumerios</span>
+              <span className="hidden sm:inline">@almadeluz71</span>
             </Link>
             
             {/* Elemento 4: Mail */}

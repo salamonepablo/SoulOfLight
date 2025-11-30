@@ -1,6 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cartStore";
+import { formatMoney } from "@/lib/price";
 import { useState } from "react";
 
 export default function CheckoutPage() {
@@ -48,12 +49,12 @@ export default function CheckoutPage() {
           <ul style={{ marginBottom: "1rem" }}>
             {items.map((item) => (
               <li key={item.id}>
-                {item.quantity} × {item.name} — ${item.price * item.quantity}
+                {item.quantity} × {item.name} — {formatMoney(item.price * item.quantity)}
               </li>
             ))}
           </ul>
 
-          <h3>Total: ${total}</h3>
+          <h3>Total: {formatMoney(total)}</h3>
 
           <form onSubmit={handleSubmit} style={{ marginTop: "2rem" }}>
             <label>Nombre completo</label>

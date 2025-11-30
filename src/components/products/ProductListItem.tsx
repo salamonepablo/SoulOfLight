@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Product } from "@/types/product";
+import { formatMoney } from "@/lib/price";
 
 interface ProductListItemProps {
   product: Product;
@@ -38,7 +39,7 @@ export function ProductListItem({ product, onAddToCart }: ProductListItemProps) 
       </div>
 
       <div className="flex flex-col items-end gap-3">
-        <span className="text-emerald-600 font-bold text-lg">${product.price.toFixed(2)}</span>
+        <span className="text-emerald-600 font-bold text-lg">{formatMoney(product.price)}</span>
         <button
           type="button"
           className={`button-base px-4 py-3 ${justAdded ? "button-success" : "button-primary"}`}
