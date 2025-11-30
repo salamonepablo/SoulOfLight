@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { currentBrandFont, playfair, cormorant, cinzel, cardo } from "@/lib/fonts";
+//import { currentBrandFont, playfair, cormorant, cinzel, cardo } from "@/lib/fonts";
+//import { currentBrandFont, cardo } from "@/lib/fonts";
 import { useCartStore } from "@/store/cartStore";
 
 function CartIcon() {
@@ -11,7 +12,7 @@ function CartIcon() {
       aria-hidden
       width="20"
       height="20"
-      viewBox="0 0 24 24"
+      viewBox="0 0 26 26"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -34,10 +35,9 @@ export default function Header() {
     <header className="bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
         <Link href="/" className="inline-flex items-center gap-3 text-slate-900">
-          <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={48} height={48} className="rounded-full object-cover" />
+          <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={68} height={68} className="rounded-full object-cover" />
           <span className="flex flex-col">
-            <span className={`${currentBrandFont.className} text-[34px] md:text-[44px] font-extrabold tracking-tight`} style={{ color: "#0E6A52" }}>Alma de Luz</span>
-            <span className="text-sm md:text-sm text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
+            <span className="text-base md:text-base text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
           </span>
         </Link>
 
