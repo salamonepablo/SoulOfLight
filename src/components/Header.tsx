@@ -36,8 +36,8 @@ export default function Header() {
         <Link href="/" className="inline-flex items-center gap-3 text-slate-900">
           <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={48} height={48} className="rounded-full object-cover" />
           <span className="flex flex-col">
-            <span className={`${currentBrandFont.className} text-2xl md:text-[30px] font-bold tracking-wide`} style={{ color: "#0F5F4A" }}>Alma de Luz</span>
-            <span className="text-base text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
+            <span className={`${currentBrandFont.className} text-[34px] md:text-[44px] font-extrabold tracking-tight`} style={{ color: "#0E6A52" }}>Alma de Luz</span>
+            <span className="text-sm md:text-sm text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
           </span>
         </Link>
 

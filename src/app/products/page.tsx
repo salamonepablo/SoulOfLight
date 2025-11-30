@@ -69,7 +69,7 @@ export default function ProductsPage() {
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
               Catálogo completo
             </p>
-            <h1 className="text-2xl font-bold tracking-tight leading-tight text-slate-900">
+            <h1 className="text-base md:text-lg font-medium tracking-tight leading-snug text-slate-700">
               Todos nuestros productos disponibles
             </h1>
             <p className="text-slate-700 max-w-3xl">

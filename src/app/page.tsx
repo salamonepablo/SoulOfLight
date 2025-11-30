@@ -67,7 +67,7 @@ export default function Page() {
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="space-y-3">
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Catálogo</p>
-            <h1 className="text-2xl font-bold tracking-tight leading-tight text-slate-900">Productos destacados</h1>
+            <h1 className="text-base md:text-lg font-medium tracking-tight leading-snug text-slate-700">Productos destacados</h1>
             <p className="text-slate-700 max-w-3xl">Agrega productos al carrito; el foco está en el catálogo.</p>
           </div>
 
