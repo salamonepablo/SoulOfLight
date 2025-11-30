@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { currentBrandFont, playfair, cormorant, cinzel, cardo } from "@/lib/fonts";
 import { useCartStore } from "@/store/cartStore";
 
 function CartIcon() {
@@ -35,8 +36,8 @@ export default function Header() {
         <Link href="/" className="inline-flex items-center gap-3 text-slate-900">
           <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={48} height={48} className="rounded-full object-cover" />
           <span className="flex flex-col">
-            <span className="text-[26px] font-extrabold tracking-tight">Alma de Luz</span>
-            <span className="text-base font-semibold text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
+            <span className={`${currentBrandFont.className} text-2xl md:text-[30px] font-bold tracking-wide`} style={{ color: "#0F5F4A" }}>Alma de Luz</span>
+            <span className="text-base text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
           </span>
         </Link>
 
