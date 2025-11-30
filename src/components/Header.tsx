@@ -37,7 +37,7 @@ export default function Header() {
         <Link href="/" className="inline-flex items-center gap-3 text-slate-900">
           <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={68} height={68} className="rounded-full object-cover" />
           <span className="flex flex-col">
-            <span className="text-base md:text-base text-emerald-700">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
+            <span className="text-lg md:text-lg text-emerald-700 font-bold">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
           </span>
         </Link>
 
