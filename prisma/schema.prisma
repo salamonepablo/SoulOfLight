@@ -14,6 +14,8 @@ model Product {
   price       Float
   stock       Int
   imageUrl    String?
+  unitsPerPack Int     @default(1) // unidades (sahumerios) por paquete
+  packs        Int     @default(1) // cantidad de paquetes incluidos
 }
 
 model Service {
