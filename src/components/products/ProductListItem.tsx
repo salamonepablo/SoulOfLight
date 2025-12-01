@@ -11,20 +11,35 @@ interface ProductListItemProps {
 }
 
 export function ProductListItem({ product, onAddToCart }: ProductListItemProps) {
-  const [imgSrc, setImgSrc] = useState<string>(product.imageUrl || "/images/almadeluz.jpg");
+  const original = product.imageUrl || "/images/almadeluz.jpg";
+  const file = original.split("/").pop() || "almadeluz.jpg";
+  const dotIndex = file.lastIndexOf(".");
+  const nameNoExt = dotIndex !== -1 ? file.substring(0, dotIndex) : file;
+  const origExt = dotIndex !== -1 ? file.substring(dotIndex + 1) : "jpg";
+  const webpThumb = `/images/thumbs/thumb-${nameNoExt}.webp`;
+  const fallbackThumb = `/images/thumbs/thumb-${nameNoExt}.${origExt}`;
+  const [imgSrc, setImgSrc] = useState<string>(webpThumb);
   const [justAdded, setJustAdded] = useState(false);
   const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="flex items-center gap-5 p-4 border border-slate-100 bg-white rounded-xl shadow-sm card-hover">
-      <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
+      <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg bg-white">
         <Image
           src={imgSrc}
           alt={product.name}
           width={120}
           height={120}
-          className="h-24 w-24 object-cover"
-          onError={() => setImgSrc("/images/almadeluz.jpg")}
+          className="h-24 w-24 object-contain object-center rounded-lg p-0.5"
+          onError={() => {
+            if (imgSrc === webpThumb) {
+              setImgSrc(fallbackThumb);
+            } else if (imgSrc === fallbackThumb) {
+              setImgSrc(original);
+            } else if (imgSrc === original) {
+              setImgSrc("/images/almadeluz.jpg");
+            }
+          }}
         />
       </div>
 

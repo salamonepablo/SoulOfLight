@@ -1,9 +1,40 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { formatMoney } from "@/lib/price";
+
+function CartItemImage({ src, alt }: { src: string; alt: string }) {
+  const original = src || "/images/almadeluz.jpg";
+  const file = original.split("/").pop() || "almadeluz.jpg";
+  const dotIndex = file.lastIndexOf(".");
+  const nameNoExt = dotIndex !== -1 ? file.substring(0, dotIndex) : file;
+  const origExt = dotIndex !== -1 ? file.substring(dotIndex + 1) : "jpg";
+  const webpThumb = `/images/thumbs/thumb-${nameNoExt}.webp`;
+  const fallbackThumb = `/images/thumbs/thumb-${nameNoExt}.${origExt}`;
+  const [current, setCurrent] = React.useState<string>(webpThumb);
+  return (
+    <Image
+      key={current}
+      src={current}
+      alt={alt}
+      width={120}
+      height={120}
+      className="h-24 w-24 object-contain object-center rounded-lg p-0.5"
+      onError={() => {
+        if (current === webpThumb) {
+          setCurrent(fallbackThumb);
+        } else if (current === fallbackThumb) {
+          setCurrent(original);
+        } else if (current === original) {
+          setCurrent("/images/almadeluz.jpg");
+        }
+      }}
+    />
+  );
+}
 
 export default function CartPage() {
   const { items, removeFromCart, clearCart } = useCartStore();
@@ -54,13 +85,10 @@ export default function CartPage() {
                     key={item.id}
                     className="flex items-center gap-5 p-4 border border-slate-100 bg-white rounded-xl shadow-sm"
                   >
-                    <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
-                      <Image
+                    <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg bg-white">
+                      <CartItemImage
                         src={item.imageUrl || "/images/almadeluz.jpg"}
                         alt={item.name}
-                        width={120}
-                        height={120}
-                        className="h-24 w-24 object-cover"
                       />
                     </div>
 

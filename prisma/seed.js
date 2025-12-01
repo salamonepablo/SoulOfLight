@@ -43,43 +43,67 @@ async function main() {
   await prisma.product.deleteMany();
 
   const imagesDir = path.join(process.cwd(), "public", "images");
-  const files = fs.existsSync(imagesDir) ? fs.readdirSync(imagesDir) : [];
+  const cardsDir = path.join(imagesDir, "cards");
+  const thumbsDir = path.join(imagesDir, "thumbs");
 
-  const imageFiles = files.filter((f) => /\.(jpe?g|png|webp)$/i.test(f));
+  const topLevelFiles = fs.existsSync(imagesDir) ? fs.readdirSync(imagesDir) : [];
+  // Tomamos solo originales del nivel superior: sin prefix thumb- ni sufijo _card
+  const originalImageFiles = topLevelFiles.filter(
+    (f) => /\.(jpe?g|png|webp)$/i.test(f) && !/^almadeluz\.(jpe?g|png|webp)$/i.test(f)
+  );
 
-  const products = imageFiles
-    // Excluir imagen fallback que no debe ser producto
-    .filter((file) => !/^almadeluz\.(jpe?g|png|webp)$/i.test(file))
-    .map((file) => {
-      const base = file.replace(/\.(jpe?g|png|webp)$/i, "");
-      const parts = base.split("-");
-      const isTibetano = /\b-tibetano\b/i.test(base);
-      const isCombo = parts.length === 3 && !isTibetano;
+  let sources = originalImageFiles;
 
-      // Definiciones de pack:
-      // estándar: packs=1, unitsPerPack=6
-      // tibetano: packs=1, unitsPerPack=3
-      // combo (3 fragmentos): packs=3, unitsPerPack=6
-      const packs = isCombo ? 3 : 1;
-      const unitsPerPack = isTibetano ? 3 : 6;
+  // Si no hay originales en la raíz, intentamos derivar desde la carpeta cards
+  if (!sources.length && fs.existsSync(cardsDir)) {
+    const cardFiles = fs.readdirSync(cardsDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f));
+    // Normalizamos a basename sin sufijo _card para usar como nombre y excluimos almadeluz
+    sources = cardFiles
+      .map((f) => f.replace(/_card(?=\.(jpe?g|png|webp)$)/i, ""))
+      .filter((f) => !/^almadeluz\.(jpe?g|png|webp)$/i.test(f));
+  }
 
-      return {
-        name: buildTitleFromFilename(base),
-        description: isTibetano
-          ? "Paquete tibetano (3 sahumerios)."
-          : isCombo
-            ? "Combo de 3 paquetes estándar (18 sahumerios)."
-            : "Paquete estándar (6 sahumerios).",
-        price: priceFromParts(parts.length, base),
-        stock: stockFromParts(parts.length, base),
-        imageUrl: `/images/${file}`,
-        unitsPerPack,
-        packs,
-      };
-    });
+  const products = sources.map((file) => {
+    const base = file.replace(/\.(jpe?g|png|webp)$/i, "");
+    const parts = base.split("-");
+    const isTibetano = /\b-tibetano\b/i.test(base);
+    const isCombo = parts.length === 3 && !isTibetano;
+
+    // Definiciones de pack
+    const packs = isCombo ? 3 : 1;
+    const unitsPerPack = isTibetano ? 3 : 6;
+
+    // Preferimos servir cards procesadas si existen
+    const webpCard = path.join(cardsDir, `${base}.webp`);
+    const jpgCard = path.join(cardsDir, `${base}.jpg`);
+    const jpegCard = path.join(cardsDir, `${base}.jpeg`);
+    const pngCard = path.join(cardsDir, `${base}.png`);
+
+    let imageUrl = `/images/${file}`; // fallback a original en raíz
+    if (fs.existsSync(webpCard)) imageUrl = `/images/cards/${base}.webp`;
+    else if (fs.existsSync(jpgCard)) imageUrl = `/images/cards/${base}.jpg`;
+    else if (fs.existsSync(jpegCard)) imageUrl = `/images/cards/${base}.jpeg`;
+    else if (fs.existsSync(pngCard)) imageUrl = `/images/cards/${base}.png`;
+
+    return {
+      name: buildTitleFromFilename(base),
+      description: isTibetano
+        ? "Paquete tibetano (3 sahumerios)."
+        : isCombo
+          ? "Combo de 3 paquetes estándar (18 sahumerios)."
+          : "Paquete estándar (6 sahumerios).",
+      price: priceFromParts(parts.length, base),
+      stock: stockFromParts(parts.length, base),
+      imageUrl,
+      unitsPerPack,
+      packs,
+    };
+  });
 
   if (!products.length) {
-    console.warn("⚠️ No se encontraron imágenes en public/images para generar productos.");
+    console.warn(
+      "⚠️ No se encontraron imágenes en public/images ni en public/images/cards para generar productos."
+    );
   }
 
   await prisma.product.createMany({ data: products });

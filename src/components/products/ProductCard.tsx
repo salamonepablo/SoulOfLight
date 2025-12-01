@@ -34,20 +34,39 @@ function CartPlusIcon() {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
-  const [imgSrc, setImgSrc] = useState<string>(product.imageUrl || "/images/almadeluz.jpg");
+  // Basename sin extensión para construir rutas procesadas
+  const original = product.imageUrl || "/images/almadeluz.jpg";
+  const file = original.split("/").pop() || "almadeluz.jpg";
+  const dotIndex = file.lastIndexOf(".");
+  const nameNoExt = dotIndex !== -1 ? file.substring(0, dotIndex) : file;
+  const origExt = dotIndex !== -1 ? file.substring(dotIndex + 1) : "jpg";
+  // El procesador genera cards sin sufijo, p.ej. cafeMoca.webp
+  const webpCard = `/images/cards/${nameNoExt}.webp`;
+  const fallbackCard = `/images/cards/${nameNoExt}.${origExt}`;
+  const [imgSrc, setImgSrc] = useState<string>(webpCard);
   const [justAdded, setJustAdded] = useState(false);
   const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="bg-white rounded-xl border border-slate-100 shadow-md card-hover overflow-hidden p-4 space-y-3">
-      <div className="h-44 w-full overflow-hidden rounded-lg">
+      {/* Recorte clásico: altura fija + cover sin fill */}
+      <div className="w-full h-44 overflow-hidden rounded-lg bg-slate-50">
         <Image
           src={imgSrc}
           alt={product.name}
-          width={480}
-          height={300}
-          className="h-44 w-full object-cover"
-          onError={() => setImgSrc("/images/almadeluz.jpg")}
+          width={800}
+          height={450}
+          className="h-full w-full object-cover object-center"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={() => {
+            if (imgSrc === webpCard) {
+              setImgSrc(fallbackCard);
+            } else if (imgSrc === fallbackCard) {
+              setImgSrc(original);
+            } else {
+              setImgSrc("/images/almadeluz.jpg");
+            }
+          }}
         />
       </div>
 
