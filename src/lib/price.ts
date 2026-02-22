@@ -4,8 +4,8 @@
 // NEXT_PUBLIC_LOCALE=es-AR
 // NEXT_PUBLIC_CURRENCY=ARS
 
-const DEFAULT_LOCALE = process.env.NEXT_PUBLIC_LOCALE || 'es-AR';
-const DEFAULT_CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || 'ARS';
+const DEFAULT_LOCALE = process.env.NEXT_PUBLIC_LOCALE || "es-AR";
+const DEFAULT_CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || "ARS";
 
 interface FormatMoneyOptions {
   locale?: string;
@@ -24,7 +24,7 @@ export function formatMoney(
   }: FormatMoneyOptions = {}
 ): string {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency,
     minimumFractionDigits,
     maximumFractionDigits,
@@ -32,6 +32,9 @@ export function formatMoney(
 }
 
 // Wrappers específicos si se quiere forzar sin opciones extra.
-export const formatARS = (value: number) => formatMoney(value, { currency: 'ARS', locale: 'es-AR' });
-export const formatUSD = (value: number) => formatMoney(value, { currency: 'USD', locale: 'en-US' });
-export const formatEUR = (value: number) => formatMoney(value, { currency: 'EUR', locale: 'de-DE' });
+export const formatARS = (value: number) =>
+  formatMoney(value, { currency: "ARS", locale: "es-AR" });
+export const formatUSD = (value: number) =>
+  formatMoney(value, { currency: "USD", locale: "en-US" });
+export const formatEUR = (value: number) =>
+  formatMoney(value, { currency: "EUR", locale: "de-DE" });

@@ -73,8 +73,8 @@ export default function ProductsPage() {
               Todos nuestros productos disponibles
             </h1>
             <p className="text-slate-700 max-w-3xl">
-              Visualiza cada artículo en cuadrícula o lista para encontrar rápidamente lo que necesitas.
-              Añade al carrito sin perder el flujo de exploración.
+              Visualiza cada artículo en cuadrícula o lista para encontrar rápidamente lo que
+              necesitas. Añade al carrito sin perder el flujo de exploración.
             </p>
           </div>
 

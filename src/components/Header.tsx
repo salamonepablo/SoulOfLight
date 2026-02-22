@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-//import { currentBrandFont, playfair, cormorant, cinzel, cardo } from "@/lib/fonts";
-//import { currentBrandFont, cardo } from "@/lib/fonts";
+import { useSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/store/cartStore";
 
 function CartIcon() {
@@ -28,6 +27,7 @@ function CartIcon() {
 }
 
 export default function Header() {
+  const { data: session, status } = useSession();
   const items = useCartStore((state) => state.items);
   const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -35,15 +35,43 @@ export default function Header() {
     <header className="bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
         <Link href="/" className="inline-flex items-center gap-3 text-slate-900">
-          <Image src="/images/almadeluz.jpg" alt="Alma de Luz" width={68} height={68} className="rounded-full object-cover" />
+          <Image
+            src="/images/almadeluz.jpg"
+            alt="Alma de Luz"
+            width={68}
+            height={68}
+            className="rounded-full object-cover"
+          />
           <span className="flex flex-col">
-            <span className="text-lg md:text-lg text-emerald-700 font-bold">Sahumerios / Servicios de Tarot / Numerología / Aromaterapia</span>
+            <span className="text-lg md:text-lg text-emerald-700 font-bold">
+              Sahumerios / Servicios de Tarot / Numerología / Aromaterapia
+            </span>
           </span>
         </Link>
 
         <nav className="flex items-center gap-4">
-          <Link href="/products" className="text-slate-800 hover:text-slate-900">Productos</Link>
-          <Link href="/cart" className="relative inline-flex items-center gap-2 text-slate-800 hover:text-slate-900">
+          <Link href="/products" className="text-slate-800 hover:text-slate-900">
+            Productos
+          </Link>
+          {session?.user && (
+            <Link href="/orders" className="text-slate-800 hover:text-slate-900">
+              Mis pedidos
+            </Link>
+          )}
+          {session?.user?.role === "ADMIN" && (
+            <>
+              <Link href="/admin/users" className="text-slate-800 hover:text-slate-900">
+                Admin usuarios
+              </Link>
+              <Link href="/admin/orders" className="text-slate-800 hover:text-slate-900">
+                Admin pedidos
+              </Link>
+            </>
+          )}
+          <Link
+            href="/cart"
+            className="relative inline-flex items-center gap-2 text-slate-800 hover:text-slate-900"
+          >
             <span className="relative inline-flex">
               <CartIcon />
               {totalQty > 0 && (
@@ -54,6 +82,26 @@ export default function Header() {
             </span>
             <span>Carrito</span>
           </Link>
+
+          {status === "loading" ? (
+            <span className="text-slate-400">...</span>
+          ) : session?.user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-slate-600">
+                {session.user.name || session.user.email}
+              </span>
+              <button
+                onClick={() => signOut()}
+                className="text-sm text-slate-600 hover:text-slate-900"
+              >
+                Salir
+              </button>
+            </div>
+          ) : (
+            <Link href="/login" className="text-slate-800 hover:text-slate-900">
+              Ingresar
+            </Link>
+          )}
         </nav>
       </div>
     </header>

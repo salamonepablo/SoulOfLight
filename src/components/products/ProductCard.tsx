@@ -45,7 +45,8 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const fallbackCard = `/images/cards/${nameNoExt}.${origExt}`;
   const [imgSrc, setImgSrc] = useState<string>(webpCard);
   const [justAdded, setJustAdded] = useState(false);
-  const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
+  const description =
+    product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="bg-white rounded-xl border border-slate-100 shadow-md card-hover overflow-hidden p-4 space-y-3">

@@ -20,7 +20,8 @@ export function ProductListItem({ product, onAddToCart }: ProductListItemProps) 
   const fallbackThumb = `/images/thumbs/thumb-${nameNoExt}.${origExt}`;
   const [imgSrc, setImgSrc] = useState<string>(webpThumb);
   const [justAdded, setJustAdded] = useState(false);
-  const description = product.description?.trim() || "Pronto tendremos más detalles de este producto.";
+  const description =
+    product.description?.trim() || "Pronto tendremos más detalles de este producto.";
 
   return (
     <article className="flex items-center gap-5 p-4 border border-slate-100 bg-white rounded-xl shadow-sm card-hover">

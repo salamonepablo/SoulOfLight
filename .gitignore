@@ -4,6 +4,7 @@ node_modules/
 # Build de Next
 .next/
 out/
+*.tsbuildinfo
 
 # Entorno
 .env
@@ -19,6 +20,10 @@ pnpm-debug.log*
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Archivos locales de contexto
+context/
+nul
 
 # Prisma
 prisma/dev.db

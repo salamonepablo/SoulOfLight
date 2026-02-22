@@ -66,8 +66,12 @@ export default function Page() {
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Catálogo</p>
-            <h1 className="text-base md:text-lg font-medium tracking-tight leading-snug text-slate-700">Productos destacados</h1>
+            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+              Catálogo
+            </p>
+            <h1 className="text-base md:text-lg font-medium tracking-tight leading-snug text-slate-700">
+              Productos destacados
+            </h1>
           </div>
 
           <div className="flex items-center gap-3">

@@ -56,11 +56,7 @@ export default function CartPage() {
           </div>
 
           {items.length > 0 && (
-            <button
-              type="button"
-              onClick={clearCart}
-              className="button-base button-ghost text-sm"
-            >
+            <button type="button" onClick={clearCart} className="button-base button-ghost text-sm">
               Vaciar carrito
             </button>
           )}
@@ -93,7 +89,9 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex-1 space-y-2">
-                      <h3 className="text-lg font-semibold text-slate-900 leading-tight">{item.name}</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 leading-tight">
+                        {item.name}
+                      </h3>
                       <p className="text-sm text-slate-700">Precio: {formatMoney(item.price)}</p>
                       <p className="text-sm text-slate-700">Cantidad: {item.quantity}</p>
                       <p className="text-sm font-semibold text-emerald-700">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Providers from "@/components/Providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -9,17 +10,15 @@ export const metadata: Metadata = {
   description: "Marketplace holístico en evolución",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body className="bg-page min-h-screen flex flex-col">
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <Providers>
+          <Header />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
